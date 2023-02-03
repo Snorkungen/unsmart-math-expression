@@ -1,22 +1,4 @@
-type Operation = (n1: number, n2: number) => number;
-
-
-const OPERATORS = {
-    "add": {
-        operation: (n1: number, n2: number) => n1 + n2,
-        match: "+"
-    },
-    "subtract": {
-        operation: (n1: number, n2: number) => n1 - n2,
-        match: "-"
-    }
-} as const;
-
-type OperatorNames = keyof typeof OPERATORS;
-
-function makeNum(str: string) {
-    return Number(str.trim())
-}
+import makeNum from "./make-num";
 
 export default function parser(expr: string) {
     let pos = 0;
