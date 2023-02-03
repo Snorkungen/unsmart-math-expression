@@ -21,8 +21,7 @@ describe("Find close Bracket", () => {
 
     test("Test 3", () => {
         let expression = "{(() () [] >><><< () ) ()}",
-            pos = 0;
-        let expected = 26; //expression.length - 1;
+            pos = 0, expected = 25; //expression.length - 1;
 
         expect(findClose(expression, pos)).toBe((expected))
     })

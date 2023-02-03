@@ -60,6 +60,3 @@ export default function parse(expr: string): Parsed {
 
     return parsed;
 }
-
-
-parse("3 + 3 +3 +(3 + 3 + (2 + 2)) + 2")
