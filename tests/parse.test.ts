@@ -18,9 +18,7 @@ describe("Math Parser", () => {
         expect(parsed).toStrictEqual(expected);
 
         parsed = parse("3 + 3 +3 +(3 + 3 + (2 + 2)) + 2")
-        expected = [3, "+", 3, "+", 3, "+", [3, "+", 3, "+", [2, "+", 2]], "+", 2]
-
-        console.log(parsed)
+        expected = [3, "+", 3, "+", 3, "+", [3, "+", 3, "+", [2, "+", 2]], "+", 2];
          
         expect(parsed).toStrictEqual(expected)
     })
