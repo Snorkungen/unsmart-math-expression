@@ -17,4 +17,10 @@ describe("Math Parser", () => {
         expect(parsed).toStrictEqual(expected)
     });
 
+    test("Test 3", () => {
+        let parsed = parse("3.4 * 1 ^ 2 / 2"),
+            expected = [3.4, "*", 1, "^", 2, "/", 2]
+
+        expect(parsed).toStrictEqual(expected);
+    });
 })
