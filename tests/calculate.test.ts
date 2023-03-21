@@ -29,10 +29,35 @@ describe("Calculate", () => {
     })
 
     test("Test 4", () => {
-        let parsed: Parsed = [2, "*", 2, "^", [2, "^", 2, "+", 16, "/", 8] ,"+", 4],
+        let parsed: Parsed = [2, "*", 2, "^", [2, "^", 2, "+", 16, "/", 8], "+", 4],
             calculated = calculate(parsed),
             expected = 132;
 
         expect(calculated).toBe(expected);
+    })
+
+    test("Test calculating starting with \"+\"", () => {
+        let parsed: Parsed = ["+", 2], expected = 2;
+        expect(calculate(parsed)).toBe(expected);
+
+        parsed = ["+", 2, "-", 2, "+", 2], expected = 2;
+        expect(calculate(parsed)).toBe(expected)
+
+        parsed = ["+", 2, "-", 2, "+", ["+", 2]], expected = 2;
+        expect(calculate(parsed)).toBe(expected)
+    })
+
+    test("Test calculating starting with \"-\"", () => {
+        let parsed: Parsed = ["-", 2], expected = -2;
+        expect(calculate(parsed)).toBe(expected)
+
+        parsed = [["-", 2, "*", 2], "+", 6], expected = 2;
+        expect(calculate(parsed)).toBe(expected)
+    })
+
+    test("Test Failing case;  bad input", () => {
+        let parsed: Parsed = [2, "+"]
+        expect(() => calculate(parsed)).toThrow()
+
     })
 })

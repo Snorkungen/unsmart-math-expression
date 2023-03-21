@@ -38,8 +38,12 @@ export default function calculate(parsed: Parsed): number {
 
         let calculated = Math.pow(baseNum, expoNum);
         parsed.splice(i - 1, 3, calculated)
-        // correct to new position 
-        i--;
+
+        // prevent infinite loops
+        if (i > 0) {
+            // correct to new position 
+            i--;
+        }
     }
 
     for (let i = 0; i < parsed.length; i++) {
@@ -56,14 +60,20 @@ export default function calculate(parsed: Parsed): number {
         else calculated = prevNum / nextNum;
 
         parsed.splice(i - 1, 3, calculated)
-        // correct to new position 
-        i--;
+
+        // prevent infinite loops
+        if (i > 0) {
+            // correct to new position 
+            i--;
+        }
     }
 
     // calculate + & -
     for (let i = 0; i < parsed.length; i++) {
         let operand = parsed[i];
         if (!["+", "-"].includes(operand as string)) continue;
+
+        // hacky solution to preventing infinite loops
 
         let prevNum = parsed[i - 1] || 0, // support stuff as ["-",2] = -2
             nextNum = parsed[i + 1];
@@ -75,14 +85,23 @@ export default function calculate(parsed: Parsed): number {
         if (operand == "+") calculated = prevNum + nextNum;
         else calculated = prevNum - nextNum;
 
-        parsed.splice(i - 1, 3, calculated)
-        // correct to new position 
-        i--;
+        // support stuff as ["-",2] = -2
+        if (i <= 0) {
+            parsed.splice(0, 2, calculated)
+        } else {
+            parsed.splice(i - 1, 3, calculated);
+        }
+        
+        // prevent infinite loops
+        if (i > 0) {
+            // correct to new position 
+            i--;
+        }
     }
 
     if (parsed.length === 1 && typeof parsed[0] == "number") {
         return parsed[0];
     }
 
-    throw new Error("Calculation failed")
+    throw new Error("Calculation failed, invalid input: [" + parsed + "]")
 }
