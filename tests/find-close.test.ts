@@ -25,4 +25,11 @@ describe("Find close Bracket", () => {
 
         expect(findClose(expression, pos)).toBe((expected))
     })
+
+    test("Bad Input case; no closing bracket" , () => {
+        let expression = "2*(2-3()",
+        pos = 2;
+
+        expect(() => findClose(expression, pos)).toThrow()
+    })
 })
