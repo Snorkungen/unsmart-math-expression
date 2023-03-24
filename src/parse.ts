@@ -1,7 +1,7 @@
 import findClose, { OPEN_BRACKETS } from "./find-close";
 import makeNum from "./make-num";
 
-const OPERATORS = ["+", "-", "*", "/", "^"] as const;
+export const OPERATORS = ["+", "-", "*", "/", "^"] as const;
 
 export type Operator = typeof OPERATORS[number];
 export type Parsed = Array<Operator | number | Parsed>;
